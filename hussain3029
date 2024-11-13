@@ -1,0 +1,187 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[4]:
+
+
+X=df.iloc[:,:-1].to_numpy()
+y=df.iloc[:,-1].to_numpy()
+
+
+# In[6]:
+
+
+import pandas as pd
+pip install pandas
+
+
+# In[ ]:
+
+
+
+
+
+# In[7]:
+
+
+from sklearn.tree import DecisionTreeClassifier 
+clf=DecisionTreeClassifier(criterion="entropy",random_state=0)
+clf.fit(X_train,y_train)
+
+
+# In[9]:
+
+
+import matplotlib.pyplot as plt
+get_ipython().run_line_magic('matplotlib', 'inline')
+from sklearn.tree import plot_tree
+plt.figure(figsize=(20,10))
+plot_tree(clf,feature_names=['Glucose','BMI'],class_names=['No','Yes'])
+plt.show()
+
+
+# In[15]:
+
+
+plot_tree(clf,feature_names=['Glucose','BMI'],class_names=['No','Yes']) 
+plt.show()
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+import pandas as pd
+df=pd.read_csv("diabetes.csv")
+
+
+# In[16]:
+
+
+df.head()
+
+
+# In[17]:
+
+
+import pandas as pd
+
+
+# In[18]:
+
+
+pip install pandas
+
+
+# In[19]:
+
+
+df=pd.read_csv("diabetes.csv")
+
+
+# In[20]:
+
+
+df.head()
+
+
+# In[21]:
+
+
+df.shape
+
+
+# In[22]:
+
+
+df.isnull().sum()
+
+
+# In[23]:
+
+
+X=df.iloc[:,:-1].to_numpy()
+y=df.iloc[:,-1].to_numpy()
+
+
+# In[24]:
+
+
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=0)
+
+
+# In[25]:
+
+
+from sklearn.tree import DecisionTreeClassifier
+clf=DecisionTreeClassifier(criterion="entropy",random_state=0)
+clf.fit(X_train,y_train)
+
+
+# In[26]:
+
+
+import matplotlib.pyplot as plt
+get_ipython().run_line_magic('matplotlib', 'inline')
+from sklearn.tree import plot_tree
+
+
+# In[27]:
+
+
+plt.figure(figsize=(20,10))
+plot_tree(clf,feature_names=['Glucose','BMI'],class_names=['No','Yes'])
+plt.show()
+
+
+# In[28]:
+
+
+clf.set_params(max_depth=3)
+
+
+# In[29]:
+
+
+clf.fit(X_train,y_train)
+plt.figure(figsize=(20,10))
+plot_tree(clf,feature_names=['Glucose','BMI'],class_names=['No','Yes'])
+plt.show()
+
+
+# In[30]:
+
+
+predictions=clf.predict(X_test)
+
+
+# In[31]:
+
+
+clf.predict([[90,20],[200,30]])
+
+
+# In[32]:
+
+
+from sklearn.model_selection import cross_val_score
+scores=cross_val_score(clf,X_train,y_train,cv=5,scoring='accuracy')
+accuracy=scores.mean
+accuracy
+
+
+# In[33]:
+
+
+from sklearn import metrics
+cf=metrics.confusion_matrix(y_test,predictions)
+cf
+
+
+# In[ ]:
